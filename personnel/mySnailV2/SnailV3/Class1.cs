@@ -12,26 +12,29 @@ namespace ExSnail
         //atribut 
 
         public int vie = 50;             //vie du escargot
-        public int x = 0;                //position
+        public int x = 10;                //position
         public int y;                   //possition
         public string alive = "_@_ö";    //escargot vivant
         public string dead = "____";     //escargot mort
-        public string name;
+        public string name = "snail";
+        public int originalvie = 50;
 
         //constructeur
 
         public Snail(int y)
         {
-            this.name = "esgargot" + y;
-            this.y = y;
+            this.y = y ;
         }
 
         //metode
 
         public void move()
         {
-            x++;
+            alive = " " + alive;
+            dead = " " + dead;
             vie--;
         }
+
+
     }
 }
