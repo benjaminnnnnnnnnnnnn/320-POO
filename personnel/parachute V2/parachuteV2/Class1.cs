@@ -17,6 +17,7 @@ namespace exparachute
         public int x = 0;
         public int y = 0;
         public string name;
+        public bool bird = false;
         private string[] withoutParachute =
 {
          @"     ",
@@ -41,6 +42,8 @@ namespace exparachute
         public Parachute(int y)
         {
             this.y = y;
+            
+            
         }
 
 
@@ -49,12 +52,25 @@ namespace exparachute
 
         public void update()
         {
-            y++;
 
-            if (y < (Config.SCREEN_HEIGHT - 7) / 2)
+            if (bird)
             {
-                y = y + 3;
+
+                x = x - 2;
             }
+            else
+            {
+                y++;
+
+                if (y < (Config.SCREEN_HEIGHT - 7) / 2)
+                {
+                    y = y + 3;
+                }
+
+
+            }
+
+
         }
 
         public void draw()
@@ -76,6 +92,9 @@ namespace exparachute
             }
             else
             {
+
+
+
                 Console.SetCursorPosition(x, y);
                 Console.WriteLine(name);
                 foreach (string line in withParachute)

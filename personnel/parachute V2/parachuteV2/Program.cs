@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using exparachute;
+using parachuteV2;
 
 namespace parachute
 {
@@ -11,7 +12,7 @@ namespace parachute
 
             Planes plane = new Planes();
 
-
+            Bird bird = new Bird();
 
 
             Console.CursorVisible = false;
@@ -28,9 +29,23 @@ namespace parachute
                 foreach (Parachute parachute in parachutes)
                 {
 
-                    if (parachute.y != Config.SCREEN_HEIGHT -7)
+
+
+                    if (parachute.y != Config.SCREEN_HEIGHT - 7)
                     {
                         parachute.update();
+                    }
+
+
+
+                    if (parachute.x == 1)
+                    {
+                        parachute.bird = false;
+                    }
+                    else if (Math.Abs(parachute.x - bird.X) < 4 && Math.Abs(parachute.y - bird.Y) < 4)
+                    {
+
+                        parachute.bird = true;
                     }
 
                 }
@@ -39,28 +54,52 @@ namespace parachute
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey(intercept: true).Key;
-                    if (key == ConsoleKey.Escape)
+                    switch (key)
                     {
-                        running = false; // Exit loop if Esc is pressed
-                    }
-                    else if (key == ConsoleKey.Spacebar)
-                    {
-                        parachutes.Add(new Parachute(i));
 
-                        parachutes[i].x = plane.x + 12;
-                        parachutes[i].y = 0;
-                        parachutes[i].name = RandomName();
-                        i++;
+                        case ConsoleKey.Escape:
+                            running = false; // Exit loop if Esc is pressed
+                            break;
+                        case ConsoleKey.Spacebar:
+                            parachutes.Add(new Parachute(i));
+
+                            parachutes[i].x = plane.x + 12;
+                            parachutes[i].y = 0;
+                            parachutes[i].name = RandomName();
+                            i++;
+                            break;
+                        case ConsoleKey.UpArrow:
+                            bird.Y +=2;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            bird.Y -=2;
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            bird.X -=2;
+                            break;
+                        case ConsoleKey.RightArrow:
+                            bird.X += 2;
+                            break;
+
                     }
+
+
+
+
                 }
+
+
+
+
 
 
                 // Modifier ce que l'on *voit*
                 Console.Clear();
                 plane.draw();
-                foreach (Parachute parachute in parachutes) 
-                { 
-                    parachute.draw(); 
+                bird.draw();
+                foreach (Parachute parachute in parachutes)
+                {
+                    parachute.draw();
                 }
 
 
