@@ -14,7 +14,8 @@ namespace Drones
 
             // Création de la flotte de drones
             List<Drone> fleet= new List<Drone>();
-            fleet.Add(new Drone(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2, "Joe"));
+            fleet.Add(new Drone(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2));
+
 
             List<Building> buildings = new List<Building>();
             buildings.Add(new Factory());
@@ -47,7 +48,7 @@ namespace Drones
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.ToString());
                 Console.ReadLine();
             }
 

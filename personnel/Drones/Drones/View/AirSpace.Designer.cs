@@ -41,7 +41,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(284, 261);
+            ClientSize = new Size(1184, 561);
             Name = "AirSpace";
             Text = "AirSpace";
             Load += AirSpace_Load;
