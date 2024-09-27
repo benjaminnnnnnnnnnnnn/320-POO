@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
 namespace Drones
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
@@ -11,63 +6,66 @@ namespace Drones
 
     public partial class AirSpace : Form
     {
-        public static readonly int WIDTH = 1200;        // Dimensions de l'espace aérien
+        public static readonly int WIDTH = 1200;        // Dimensions of the airspace
         public static readonly int HEIGHT = 600;
 
-        private List<Drone> fleet;                     // La flotte des drones
-        private BufferedGraphicsContext currentContext;
-        private BufferedGraphics airspace;
+        // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
+        private List<Drone> fleet;
+        private List<Building> buildings;
 
-        // Variables pour les mouvements
-        private bool moveUp, moveDown, moveLeft, moveRight;
-        private const int MOVE_SPEED = 3; // Vitesse de déplacement du drone
+        BufferedGraphicsContext currentContext;
+        BufferedGraphics airspace;
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public AirSpace(List<Drone> fleet) : base()
+        public AirSpace(List<Drone> fleet, List<Building> buildings)
         {
             InitializeComponent();
-
-            this.fleet = fleet;
-
             // Gets a reference to the current BufferedGraphicsContext
             currentContext = BufferedGraphicsManager.Current;
-
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             airspace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
+            this.fleet = fleet;
+            this.buildings = buildings;
 
-            // Gestion des touches clavier
-            this.KeyDown += new KeyEventHandler(OnKeyDown);
-            this.KeyUp += new KeyEventHandler(OnKeyUp);
+            if (fleet.Count > 10)
+            {
+                throw new Exception("there are too many drones");
+            }
 
-            // Rendre le formulaire focusable pour les événements clavier
-            this.KeyPreview = true;
+
         }
 
-        // Gestion des appuis sur les touches clavier
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.W)
-                moveUp = true;
-            if (e.KeyCode == Keys.S)
-                moveDown = true;
-            if (e.KeyCode == Keys.A)
-                moveLeft = true;
-            if (e.KeyCode == Keys.D)
-                moveRight = true;
-        }
 
-        // Gestion du relâchement des touches clavier
-        private void OnKeyUp(object sender, KeyEventArgs e)
+
+        // Affichage de la situation actuelle
+        private void Render()
         {
-            if (e.KeyCode == Keys.W)
-                moveUp = false;
-            if (e.KeyCode == Keys.S)
-                moveDown = false;
-            if (e.KeyCode == Keys.A)
-                moveLeft = false;
-            if (e.KeyCode == Keys.D)
-                moveRight = false;
+            airspace.Graphics.Clear(Color.AliceBlue);
+
+            // draw drones
+            foreach (Drone drone in fleet)
+            {
+                drone.Render(airspace);
+            }
+
+            foreach (Building building in buildings)
+            {
+                if (building.GetType() == typeof(Store))
+                {
+
+                    building.Render(airspace, true);
+
+                }
+                else
+                {
+
+                    building.Render(airspace, false);
+                }
+
+            }
+
+            airspace.Render();
         }
 
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
@@ -75,22 +73,8 @@ namespace Drones
         {
             foreach (Drone drone in fleet)
             {
-                drone.Update(moveUp, moveDown, moveLeft, moveRight, MOVE_SPEED);
+                drone.Update(interval);
             }
-        }
-
-        // Affichage de la situation actuelle
-        private void Render()
-        {
-            airspace.Graphics.Clear(Color.AliceBlue);
-
-            // Dessin des drones
-            foreach (Drone drone in fleet)
-            {
-                drone.Render(airspace);
-            }
-
-            airspace.Render();
         }
 
         // Méthode appelée à chaque frame
@@ -98,6 +82,11 @@ namespace Drones
         {
             this.Update(ticker.Interval);
             this.Render();
+        }
+
+        private void AirSpace_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

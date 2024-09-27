@@ -17,45 +17,18 @@
             _name = name;
             _charge = GlobalHelpers.alea.Next(FULLCHARGE); // La charge initiale de la batterie est choisie aléatoirement
         }
-        public int X { get { return _x; } }
-        public int Y { get { return _y; } }
-        public string Name { get { return _name; } }
+        public int X { get { return _x;} }
+        public int Y { get { return _y;} }
+        public string Name { get { return _name;} }
 
         // Cette méthode calcule le nouvel état dans lequel le drone se trouve après
         // que 'interval' millisecondes se sont écoulées
-        public void Update(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, int speed)
+        public void Update(int interval)
         {
-            bool moved = false;
-
-            if (moveUp)
-            {
-                _y -= speed;
-                moved = true;
-            }
-
-            if (moveDown)
-            {
-                _y += speed;
-                moved = true;
-            }
-
-            if (moveLeft)
-            {
-                _x -= speed;
-                moved = true;
-            }
-
-            if (moveRight)
-            {
-                _x += speed;
-                moved = true;
-            }
-
-            // Décharge de la batterie uniquement si le drone bouge
-            if (moved)
-            {
-                _charge--;
-            }
+            _x += 2;                                    // Il s'est déplacé de 2 pixels vers la droite
+            _y += GlobalHelpers.alea.Next(-2, 3);       // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+            _charge--;                                  // Il a dépensé de l'énergie
         }
+
     }
 }

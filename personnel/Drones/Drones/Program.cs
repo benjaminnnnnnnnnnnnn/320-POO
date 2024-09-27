@@ -13,11 +13,44 @@ namespace Drones
             ApplicationConfiguration.Initialize();
 
             // Création de la flotte de drones
-            List<Drone> fleet = new List<Drone>();
-            fleet.Add(new Drone(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2, "Fish"));
+            List<Drone> fleet= new List<Drone>();
+            fleet.Add(new Drone(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2, "Joe"));
 
-            // Démarrage
-            Application.Run(new AirSpace(fleet));
+            List<Building> buildings = new List<Building>();
+            buildings.Add(new Factory());
+            buildings.Add(new Store());
+
+
+
+
+            foreach (Building building in buildings)
+            {
+                if (building.GetType() == typeof(Store))
+                {
+                    Store store = (Store)building;
+                    store.Show();
+                }
+                else if (building.GetType() == typeof(Factory))
+                {
+                    Factory factory = (Factory)building;
+                    factory.Show();
+                }
+                else
+                    building.Show();
+            }
+
+
+            try
+            {
+                // Démarrage
+                Application.Run(new AirSpace(fleet, buildings));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadLine();
+            }
+
         }
     }
 }
