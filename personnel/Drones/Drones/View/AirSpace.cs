@@ -12,7 +12,8 @@ namespace Drones
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private List<Drone> fleet;
         private List<Building> buildings;
-
+        
+        Dispatch Dispatch = new Dispatch();
         private List<Box> boxes = new List<Box>();
 
         BufferedGraphicsContext currentContext;
@@ -34,6 +35,7 @@ namespace Drones
             {
                 throw new Exception("there are too many drones");
             }
+
 
 
         }
@@ -86,6 +88,14 @@ namespace Drones
                     factory.Upate(boxes);
                 }
             }
+
+            if (Dispatch.dispatchbox.Count > 0)
+                Dispatch.removebox();
+
+            if (boxes.Count > 0)
+               Dispatch.addbox(boxes);
+
+
         }
 
         // Méthode appelée à chaque frame

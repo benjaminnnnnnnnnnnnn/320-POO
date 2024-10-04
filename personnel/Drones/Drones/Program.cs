@@ -19,7 +19,7 @@ namespace Drones
 
             List<Building> buildings = new List<Building>();
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 5; i++)
             {
                 buildings.Add(new Factory(i));
             }

@@ -79,7 +79,7 @@ namespace Drones
 
             if (i > rnd)
             {
-                boxes.Add(new Box());
+                boxes.Add(new Box(boxes.Count));
                 i = 0;
                 Console.WriteLine("box++;");
                 rnd = GlobalHelpers.alea.Next(10, 31);

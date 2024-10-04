@@ -1,5 +1,6 @@
 using Drones;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using System.Windows.Forms;
 
 
 
@@ -32,6 +33,24 @@ namespace DronesTest
 
             // Assert
             Assert.AreEqual(EvacuationState.Free, drone.GetEvacuationState());
+        }
+
+        [TestMethod]
+        public void Test_addbox()
+        {
+            List<Box> boxes = new List<Box>();
+            boxes.Add(new Box(1));
+
+            Dispatch dispatch = new Dispatch();
+            dispatch.addbox(boxes);
+
+            Assert.AreEqual(1, dispatch.dispatchbox.Count);
+
+
+
+            dispatch.removebox();
+
+            Assert.AreEqual(0, dispatch.dispatchbox.Count);
         }
 
     }

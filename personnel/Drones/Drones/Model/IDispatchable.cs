@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Drones.Model
+namespace Drones
 {
-    internal class IDispatchable
+    public interface IDispatchable
     {
+        public void addbox(List<Box> boxes);
+
+        public void removebox();
     }
+
+
 }
