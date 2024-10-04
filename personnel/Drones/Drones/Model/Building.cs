@@ -73,13 +73,13 @@ namespace Drones
 
         int rnd = GlobalHelpers.alea.Next(10,31);
         int i = 0;
-        public void Upate(List<Box> boxes)
+        public void Upate()
         {
             i++;
 
             if (i > rnd)
             {
-                boxes.Add(new Box(boxes.Count));
+                Box box = new Box(1);        
                 i = 0;
                 Console.WriteLine("box++;");
                 rnd = GlobalHelpers.alea.Next(10, 31);

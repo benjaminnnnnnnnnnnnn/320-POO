@@ -14,7 +14,7 @@ namespace Drones
         private List<Building> buildings;
         
         Dispatch Dispatch = new Dispatch();
-        private List<Box> boxes = new List<Box>();
+        Box box = new Box(1);
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
@@ -85,15 +85,15 @@ namespace Drones
                 if (building.GetType() == typeof(Factory))
                 {
                     Factory factory = (Factory)building;
-                    factory.Upate(boxes);
+                    factory.Upate();
                 }
             }
 
             if (Dispatch.dispatchbox.Count > 0)
-                Dispatch.removebox();
+                Dispatch.removebox(box);
 
-            if (boxes.Count > 0)
-               Dispatch.addbox(boxes);
+
+           Dispatch.addbox(box);
 
 
         }

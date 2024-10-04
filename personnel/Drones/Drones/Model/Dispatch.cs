@@ -12,17 +12,16 @@ namespace Drones
         public List<Box> dispatchbox = new List<Box> ();
 
 
-        public void addbox(List<Box> boxes)
+        public void addbox(Box box)
         {
-            dispatchbox.Add(boxes[0]);
-            boxes.Remove(boxes[0]);
+            dispatchbox.Add(box);            
             Console.WriteLine("box sent to dispatch");
         }
 
 
-        public void removebox()
+        public void removebox(Box box)
         {
-            dispatchbox.Remove(dispatchbox[0]);
+            dispatchbox.Remove(box);
             Console.WriteLine("dispatch box remouved");
         }
     }

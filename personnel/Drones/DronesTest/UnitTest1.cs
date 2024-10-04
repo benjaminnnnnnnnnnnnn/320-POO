@@ -38,17 +38,17 @@ namespace DronesTest
         [TestMethod]
         public void Test_addbox()
         {
-            List<Box> boxes = new List<Box>();
-            boxes.Add(new Box(1));
+            Box box = new Box(1);
+
 
             Dispatch dispatch = new Dispatch();
-            dispatch.addbox(boxes);
+            dispatch.addbox(box);
 
             Assert.AreEqual(1, dispatch.dispatchbox.Count);
 
 
 
-            dispatch.removebox();
+            dispatch.removebox(box);
 
             Assert.AreEqual(0, dispatch.dispatchbox.Count);
         }
