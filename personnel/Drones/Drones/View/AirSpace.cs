@@ -13,6 +13,8 @@ namespace Drones
         private List<Drone> fleet;
         private List<Building> buildings;
 
+        private List<Box> boxes = new List<Box>();
+
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
 
@@ -74,6 +76,15 @@ namespace Drones
             foreach (Drone drone in fleet)
             {
                 drone.Update(interval);
+            }
+
+            foreach (Building building in buildings)
+            {
+                if (building.GetType() == typeof(Factory))
+                {
+                    Factory factory = (Factory)building;
+                    factory.Upate(boxes);
+                }
             }
         }
 

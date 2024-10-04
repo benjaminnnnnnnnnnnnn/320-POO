@@ -52,7 +52,6 @@ namespace Drones
             _state = EvacuationState.Free;
         }
 
-        bool evacuaded = false;
         public EvacuationState GetEvacuationState()
         {
             return _state;
